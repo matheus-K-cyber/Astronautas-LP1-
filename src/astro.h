@@ -1,26 +1,30 @@
-#ifndef ASTRONAUTA_H
-#define ASTRONAUTA_H
+#ifndef VOO_H
+#define VOO_H
 
-using namespace std;
+#include <vector>
+#include <string>
 
 class Astronauta {
-private:
-string cpf;
-string nome;
-int idade;
-bool vivo;
-bool disponivel;
+    private:
+        std::string cpf;
+        std::string nome;
+        int idade;
+        bool vivo;
+        bool disponivel;
 
-public:
-Astronauta(string cpf, string nome, int idade);
-string getCpf();
-string getNome();
-int getIdade();
-bool estaVivo();
-bool estaDisponivel();
-void embarcar(); // fica indisponivel
-void desembarcar(); // volta a ficar disponivel, se estiver vivo
-void morrer(); // fica morto e indisponivel
+    public:
+        //Criador:
+        Astronauta(std::string cpf, std::string nome, int idade);
+        //Observadores:
+        std::string getCpf();
+        std::string getNome();
+        int getIdade();
+        bool vivo();
+        bool disponivel();
+        //Modificadores
+        void embarcar(); // vivo e indisponivel
+        void desembarcar(); // volta a ficar disponivel, se estiver vivo
+        void morrer(); // fica morto e indisponivel, mas ainda cadastrado
 };
 
 #endif
