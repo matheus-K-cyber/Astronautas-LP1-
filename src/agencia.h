@@ -1,8 +1,10 @@
-#ifndef VOO_H
-#define VOO_H
+#ifndef AGENCIA_H
+#define AGENCIA_H
 
-#include <vector>
+#include "astro.h"
+#include "voo.h"
 #include <string>
+#include <vector>
 
 class Agencia { //constituído apenas de modificadores devido ser a responsável pelas "ordens"
     private:

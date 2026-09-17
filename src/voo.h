@@ -1,15 +1,15 @@
 #ifndef VOO_H
 #define VOO_H
 
-#include <vector>
 #include <string>
+#include <vector>
 
 class Voo {
     private:
         int codigo;
         std::string estado;
-        std::vector<string> cpfs;
-        
+        std::vector<std::string> cpfs;
+
     public:
         Voo(int codigo); //Criador
         //Observadores

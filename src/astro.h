@@ -1,7 +1,6 @@
-#ifndef VOO_H
-#define VOO_H
+#ifndef ASTRONAUTA_H
+#define ASTRONAUTA_H
 
-#include <vector>
 #include <string>
 
 class Astronauta {
@@ -19,8 +18,8 @@ class Astronauta {
         std::string getCpf();
         std::string getNome();
         int getIdade();
-        bool vivo();
-        bool disponivel();
+        bool vive();
+        bool acessavel();
         //Modificadores
         void embarcar(); // vivo e indisponivel
         void desembarcar(); // volta a ficar disponivel, se estiver vivo
