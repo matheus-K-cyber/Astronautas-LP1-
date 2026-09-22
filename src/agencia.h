@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-class Agencia { //constituído apenas de modificadores devido ser a responsável pelas "ordens"
+class Agencia { // Constituído apenas de modificadores devido ser a responsável pelas "ordens"
     private:
         std::vector<Astronauta> astronautas;
         std::vector<Voo> voos;

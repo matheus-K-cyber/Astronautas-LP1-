@@ -6,21 +6,22 @@
 
 class Voo {
     private:
+        int countA;
         int codigo;
         std::string estado;
         std::vector<std::string> cpfs;
 
     public:
         Voo(int codigo); //Criador
-        //Observadores
+        // Observadores:
         int getCodigo();
         std::string getEstado();
-        int getQuantidadeAstronautas();
-        std::string getCpf(int posicao);
-        bool temAstronauta(std::string cpf);
-        //Modificador
-        void adicionarAstronauta(std::string cpf);
-        bool removerAstronauta(std::string cpf); // false se o CPF nao estava no voo e observador
+        int getAstroCount();
+        std::string getcpf(int posicao);
+        bool temAstro(std::string cpf);
+        // Modificadores:
+        void addAstro(std::string cpf);
+        bool removeAstro(std::string cpf); // False se o CPF nao estava no voo
         void lancar();
         void explodir();
         void finalizar();

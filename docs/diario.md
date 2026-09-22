@@ -10,14 +10,17 @@ com a IA. Cole só os pedidos que você enviou.
 
 ## Parte 1: antes de programar
 
-- O que cada classe guarda:
-- O que acontece em `LANCAR_VOO`, em palavras:
-- Uma dúvida que eu tinha antes de começar:
+- O que cada classe guarda: 
+-a classe dos astonautas(astro.h) recebe informações básicas de cadastro e situação(vivo ou morto, disponível ou não);
+-a classe de voo(voo.h) armazena e recebe os dados mais relevantes, executa comandos para os voos e os astronautas, checare valida estes comandos e os astronautas;
+-a classe da agência(agencia.h) liga-se as outras e passa os dados para elas e dá as ordens para executar os comandos das duas classes;
+- O que acontece em `LANCAR_VOO`, em palavras: a agencia recebe o comando e roda o seu "lancarVoo(int codigo)", dando a ordem para que Voo execute o comando de lançamento e troque o estado atual para "em curso", caso o voo seja validado.
+- Uma dúvida que eu tinha antes de começar: como devo, exatamente, separar: declarações de classes e métodos, implementações e a main, como é a estrutura e funcionamento de cada um desses arquivos e o uso de herança entre arquivos.
 
 ## Parte 1: uso de IA para entender algo
 
-- O que perguntei (ou "não usei"):
-- O que aprendi:
+- O que perguntei (ou "não usei"): oque é um main.cpp, um arquivo.cpp e um arquivo.h(diferenças, sintaxe, papéis de cada um, limites, implementações e conexão), comandos de compilação para projetos com múltiplos arquivos, configuração do VScode para esse projeto e como funciona a herança com arquivos.
+- O que aprendi: arquivos .h são TAD's que mostram os "contratos", .cpp garante o comprimento dos contratos sem que o contratante saiba os meios, um .h pode receber outros .h como herança, main receberá aas ordens e fará as "convocações" das classes e seus contratos, como fazer arquivos.o e executá-los e detalhes para configurar o ambiente do projeto(usando WSL Ubuntu).
 
 ## Primeiro contato: revisão sem editar
 

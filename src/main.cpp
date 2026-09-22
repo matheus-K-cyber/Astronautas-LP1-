@@ -1,3 +1,4 @@
+#include "agencia.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -9,7 +10,7 @@ using namespace std;
 // a chamada ao metodo da Agencia.
 
 int main() {
-    // TODO: criar a Agencia aqui, por exemplo:  Agencia agencia;
+    Agencia agencia;                // TODO: criar a Agencia aqui, por exemplo:  Agencia agencia;
     string comando;
 
     while (cin >> comando) {   // le uma palavra; para no FIM ou quando a entrada acaba
@@ -18,48 +19,96 @@ int main() {
         } else if (comando == "CADASTRAR_ASTRONAUTA") {
             string cpf, nome;
             int idade;
+
             cin >> cpf >> idade;
             getline(cin >> ws, nome);   // o nome vem por ultimo e pode ter espacos
-            cout << "TODO " << comando << endl;
-            // TODO: agencia.cadastrarAstronauta(cpf, nome, idade);
+
+            Astronauta test1(cpf, nome, idade);
+
+            if(!test1.vive()) {
+            agencia.cadastrarAstronauta(cpf, nome, idade);
+
+            cout << "OK: astronauta " << cpf << " cadastrado" << endl;
+            } else {
+                cout << "ERRO: astronauta com CPF " << cpf <<" ja cadastrado" << endl;
+            }
+
         } else if (comando == "CADASTRAR_VOO") {
             int codigo;
+
             cin >> codigo;
-            cout << "TODO " << comando << endl;
-            // TODO: agencia.cadastrarVoo(codigo);
+
+            Voo test1(codigo);
+
+            if(test1.getEstado() == "planejado") {
+                cout << "ERRO: voo " << codigo << " ja cadastrado" << endl;
+            } else {
+            agencia.cadastrarVoo(codigo);
+
+            cout << "OK: voo " << codigo << " cadastrado" << endl;
+            }
+
         } else if (comando == "ADICIONAR_ASTRONAUTA") {
             string cpf;
             int codigo;
+
             cin >> cpf >> codigo;
-            cout << "TODO " << comando << endl;
-            // TODO: agencia.adicionarAstronauta(cpf, codigo);
+
+            Voo test2(codigo);
+            string retorno = test2.getcpf(codigo);
+
+            if(test2.temAstro(cpf)) {
+                cout << "ERRO: astronauta " << cpf << " ja esta no voo " << codigo << endl;
+            } else if (retorno != cpf) {
+                cout << "ERRO: astronauta " << cpf << " nao cadastrado" << endl;
+            } else {
+            
+            agencia.adicionarAstronauta(cpf, codigo);
+
+            cout << "OK: astronauta " << cpf << " adicionado ao voo " << codigo << endl;
+            }
+            // PRECISO DOS COUTS AQUI? OU POSSO DEIXAR PARA AGENCIA E A MAIN APENAS CONVOCA?
         } else if (comando == "REMOVER_ASTRONAUTA") {
             string cpf;
             int codigo;
+
             cin >> cpf >> codigo;
-            cout << "TODO " << comando << endl;
-            // TODO: agencia.removerAstronauta(cpf, codigo);
+            
+            agencia.removerAstronauta(cpf, codigo);
+
+            cout << "OK: astronauta " << cpf <<" removido do voo " << codigo << endl;
         } else if (comando == "LANCAR_VOO") {
             int codigo;
+
             cin >> codigo;
-            cout << "TODO " << comando << endl;
-            // TODO: agencia.lancarVoo(codigo);
+            
+            agencia.lancarVoo(codigo);
+
+            cout << "OK: voo " << codigo << " lancado" << endl;
         } else if (comando == "EXPLODIR_VOO") {
             int codigo;
+
             cin >> codigo;
-            cout << "TODO " << comando << endl;
-            // TODO: agencia.explodirVoo(codigo);
+
+            agencia.explodirVoo(codigo);
+
+            cout << "OK: voo " << codigo << " explodiu" << endl;
         } else if (comando == "FINALIZAR_VOO") {
             int codigo;
+
             cin >> codigo;
-            cout << "TODO " << comando << endl;
-            // TODO: agencia.finalizarVoo(codigo);
+            
+            agencia.finalizarVoo(codigo);
+
+            cout << "OK: voo "  << codigo << " finalizado com sucesso" << endl;
         } else if (comando == "LISTAR_VOOS") {
-            cout << "TODO " << comando << endl;
-            // TODO: agencia.listarVoos();
+            cout << "LISTA DE VOOS" << endl;
+
+            agencia.listarVoos();
         } else if (comando == "LISTAR_MORTOS") {
-            cout << "TODO " << comando << endl;
-            // TODO: agencia.listarMortos();
+            cout << "ASTRONAUTAS MORTOS" << endl;
+            
+            agencia.listarMortos();
         } else {
             cout << "ERRO: comando desconhecido " << comando << endl;
         }

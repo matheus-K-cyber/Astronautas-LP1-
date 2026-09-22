@@ -12,18 +12,18 @@ class Astronauta {
         bool disponivel;
 
     public:
-        //Criador:
+        // Criador:
         Astronauta(std::string cpf, std::string nome, int idade);
         //Observadores:
-        std::string getCpf();
-        std::string getNome();
-        int getIdade();
+        std::string getcpf();
+        std::string getnome();
+        int getidade();
         bool vive();
         bool acessavel();
-        //Modificadores
-        void embarcar(); // vivo e indisponivel
-        void desembarcar(); // volta a ficar disponivel, se estiver vivo
-        void morrer(); // fica morto e indisponivel, mas ainda cadastrado
+        // Modificadores:
+        void embarcar(); // Vivo e indisponivel
+        void desembarcar(); // Se estiver vivo, fica disponível
+        void morrer(); // Fica morto e indisponivel, mas ainda cadastrado
 };
 
 #endif
