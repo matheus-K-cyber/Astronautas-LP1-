@@ -7,120 +7,223 @@
 // IMPLEMENTAÇÃO DOS MODIFICADORES:
 void Agencia::cadastrarAstronauta(std::string cpf, std::string nome, int idade) {
     Astronauta newA = Astronauta(cpf, nome, idade);
-    /*int test = buscarAstronauta(cpf);
+    int test = buscarAstronauta(cpf);
 
-    if(test == -1) {
+    if(test >= 0) {
         std::cout << "ERRO: astronauta com CPF " << cpf << " ja cadastrado" << std::endl;
-    } else {
+    } else if(test == -1) {
     astronautas.push_back(newA);
-    }*/
-    astronautas.push_back(newA);
+
+    std::cout << "OK: astronauta " << cpf << " cadastrado" << std::endl;
+    }
+}
+
+int Agencia::buscarAstronauta(std::string cpf) {
+    for(int i = 0; i < astronautas.size(); i++) {
+        if(astronautas[i].getcpf() == cpf) {
+            return i;
+        }
+    }
+
+    return -1;
 }
 
 void Agencia::cadastrarVoo(int codigo) {
     Voo newV = Voo(codigo);
+    int test = buscarVoo(codigo);
 
-    voos.push_back(newV);
+    if(test >= 0) {
+        std::cout << "ERRO: voo " << codigo << " ja cadastrado" << std::endl;
+    } else if(test == -1) {
+        voos.push_back(newV);
+
+        std::cout << "OK: voo " << codigo << " cadastrado" << std::endl;
+    }
+}
+
+int Agencia::buscarVoo(int codigo) {
+    for(int i = 0; i < voos.size(); i++) {
+        if(voos[i].getCodigo() == codigo) {
+            return i;
+        }
+    }
+
+    return -1;
 }
 
 void Agencia::adicionarAstronauta(std::string cpf, int codigo) {
-    for(int i = 0; i < astronautas.size(); i++) {
-        if(voos[i].getCodigo() == codigo && !voos[i].temAstro(cpf)) {
-            voos[i].addAstro(cpf);
-            astronautas[i].embarcar();
-            astronautas[i].vive();
+    int testA = buscarAstronauta(cpf);
+    int testV = buscarVoo(codigo);
+
+    if(voos[testV].getEstado() != "planejado") {
+        std::cout << "ERRO: voo " << codigo << " nao esta planejado" << std::endl;
+    } else if(testV == -1){
+        std::cout << "ERRO: voo " << codigo << " nao esta cadastrado" << std::endl;
+    } else if(voos[testV].temAstro(cpf)) {
+        std::cout << "ERRO: astronauta " << cpf << " ja esta no voo " << codigo  << std::endl;
+    } else if(testA == -1) {
+        std::cout << "ERRO: astronauta " << cpf << " nao cadastrado" << std::endl;
+    } else if(!astronautas[testA].vive()) {
+        std::cout << "ERRO: astronauta " << cpf << " esta morto" << std::endl;
+    } else {
+        std::cout << "OK: astronauta " << cpf << " adicionado ao voo " << codigo << std::endl;
+
+        if(!astronautas[testA].acessavel()) {
+            std::cout << "ERRO: astronauta " << cpf << " esta indisponivel" << std::endl;
+
+            removerAstronauta(cpf, codigo);
         } else {
-            
+        astronautas[testA].embarcar();
+        voos[testV].addAstro(cpf);
         }
     }
 }
 
 void Agencia::removerAstronauta(std::string cpf, int codigo) {
-    for(int i = 0; i < astronautas.size(); i++) {
-        if(voos[i].getCodigo() == codigo) {
-            voos[i].removeAstro(cpf);
-            astronautas[i].desembarcar();
-        }
+    int testA = buscarAstronauta(cpf);
+    int testV = buscarVoo(codigo);
+
+    if(testA == -1) {
+        std::cout << "ERRO: astronauta " << cpf << " nao cadastrado" << std::endl;
+    } else if(voos[testV].getEstado() != "planejado") {
+        std::cout << "ERRO: voo " << codigo << " nao esta planejado" << std::endl;
+    } else if(testV == -1){
+        std::cout << "ERRO: voo " << codigo << " nao esta cadastrado" << std::endl;
+    } else if(!voos[testV].removeAstro(cpf)) {
+        std::cout << "ERRO: astronauta " << cpf << " nao esta no voo " << codigo << std::endl;
+    } else if(voos[testV].removeAstro(cpf)) {
+        std::cout << "OK: astronauta " << cpf << " removido do voo " << codigo << std::endl;
     }
 }
 
 void Agencia::lancarVoo(int codigo) {
-    for(int i = 0; i < voos.size(); i++) {
-        if(voos[i].getCodigo() == codigo) {
-            voos[i].lancar();
+    int testV = buscarVoo(codigo);
 
+    if(voos[testV].getEstado() != "planejado") {
+        std::cout << "ERRO: voo " << codigo << " nao esta planejado" << std::endl;
+    } else if(testV == -1){
+        std::cout << "ERRO: voo " << codigo << " nao esta cadastrado" << std::endl;
+    } else if(voos[testV].getAstroCount() == 0){
+        std::cout << "ERRO: voo " << codigo << " nao possui astronautas" << std::endl;
+    } 
+    
+    for(int i = 0; i < astronautas.size(); i++) {
+        if(!astronautas[i].vive()) {
+            std::cout << "ERRO: astronauta " << astronautas[i].getcpf() << " esta morto" << std::endl;
+
+            break;
+        } else if(!astronautas[i].acessavel()) {
+            std::cout << "ERRO: astronauta " << astronautas[i].getcpf() << " esta indisponivel" << std::endl;
+
+            break;
         }
+    }
+    
+    if(voos[testV].getCodigo() == codigo) {
+        voos[testV].lancar();
+
+        std::cout << "OK: voo " << codigo << " lancado" << std::endl;
     }
 }
 
 void Agencia::explodirVoo(int codigo) {
-    for(int i = 0; i < voos.size(); i++) {
-        if(voos[i].getCodigo() == codigo) {
-            voos[i].explodir();
-            astronautas[i].morrer();
-        }
+    int testV = buscarVoo(codigo);
+    
+    if(voos[testV].getEstado() != "planejado") {
+        std::cout << "ERRO: voo " << codigo << " nao esta planejado" << std::endl;
+    } else if(testV == -1){
+        std::cout << "ERRO: voo " << codigo << " nao esta cadastrado" << std::endl;
+    } else if(voos[testV].getCodigo() == codigo) {
+        voos[testV].explodir();
+        astronautas[testV].morrer();
+
+        std::cout << "OK: voo " << codigo << " explodiu" << std::endl;
     }
 }
 
 void Agencia::finalizarVoo(int codigo) {
-    for(int i = 0; i < voos.size(); i++) {
-        if(voos[i].getCodigo() == codigo) {
-            voos[i].finalizar();
-        }
+    int testV = buscarVoo(codigo);
+    
+    if(voos[testV].getEstado() != "planejado") {
+        std::cout << "ERRO: voo " << codigo << " nao esta planejado" << std::endl;
+    } else if(testV == -1){
+        std::cout << "ERRO: voo " << codigo << " nao esta cadastrado" << std::endl;
+    } else if(voos[testV].getCodigo() == codigo) {
+        voos[testV].finalizar();
+    } 
+    
+    if(voos[testV].getEstado() == "finalizado com explosao") {
+            std::cout << "OK: voo " << codigo << " explodiu" << std::endl;
+    } else {
+            std::cout << "OK: voo " << codigo << " finalizado com sucesso" << std::endl;
     }
 }
+
 
 void Agencia::listarVoos() {
     std::cout << "== planejado ==" << std::endl;
 
     for(int i = 0; i < voos.size(); i++) {
         if(voos[i].getEstado() == "planejado") {
-            std::cout << "voo " << voos[i].getCodigo() << ": " << astronautas[i].getcpf() << " " << astronautas[i].getnome();
-            if(voos[i + 1].getEstado() == "planejado") {
-                std::cout << ", ";
+            std::cout << "voo " << voos[i].getCodigo() << ": ";
+            if(voos[i].getAstroCount() == 0) {
+                std::cout << "sem astronautas" << std::endl;
+            } else {
+            std::cout << astronautas[i].getcpf() << " " << astronautas[i].getnome();
+
+                if(voos[i + 1].getEstado() == "planejado") {
+                    std::cout << ", ";
+                }
             }
         }
     }
-    std::cout << std::endl;
 
     std::cout << "== em curso ==" << std::endl;
 
     for(int i = 0; i < voos.size(); i++) {
         if(voos[i].getEstado() == "em curso") {
-            std::cout << "voo " << voos[i].getCodigo() << ": " << astronautas[i].getcpf() << " " << astronautas[i].getnome();
-            if(voos[i + 1].getEstado() == "em curso") {
-                std::cout << ", ";
+            std::cout << "voo " << voos[i].getCodigo() << ": ";
+            if(voos[i].getEstado() != "em curso") {
+                std::cout << "(nenhum)" << std::endl;
+            } else {
+            std::cout << astronautas[i].getcpf() << " " << astronautas[i].getnome();
+
+                if(voos[i + 1].getEstado() == "em curso") {
+                    std::cout << ", ";
+                }
             }
         }
     }
-    std::cout << std::endl;
 
     std::cout << "== finalizado com sucesso ==" << std::endl;
 
     for(int i = 0; i < voos.size(); i++) {
-        if(voos[i].getEstado() == "finalizado com sucesso") {
-            std::cout << "voo " << voos[i].getCodigo() << ": " << astronautas[i].getcpf() << " " << astronautas[i].getnome();
-            if(voos[i + 1].getEstado() == "finalizado com sucesso") {
-                std::cout << ", ";
-                astronautas[i].desembarcar();
+        if(voos[i].getEstado() == "em curso") {
+            std::cout << "voo " << voos[i].getCodigo() << ": ";
+            if(voos[i].getEstado() != "finalizado com sucesso") {
+                std::cout << "(nenhum)" << std::endl;
+            } else {
+            std::cout << astronautas[i].getcpf() << " " << astronautas[i].getnome();
+
+                if(voos[i + 1].getEstado() == "finalizado com sucesso") {
+                    std::cout << ", ";
+                }
             }
         }
     }
-    std::cout << std::endl;
 
     std::cout << "== finalizado com explosao ==" << std::endl;
 
     for(int i = 0; i < voos.size(); i++) {
         if(voos[i].getEstado() == "finalizado com explosao") {
-            std::cout << "voo " << voos[i].getCodigo() << ": " << astronautas[i].getcpf() << " " << astronautas[i].getnome();
-            if(voos[i + 1].getEstado() == "finalizado com explosao") {
-                std::cout << "\n";
-                astronautas[i].desembarcar();
+            std::cout << "voo " << voos[i].getCodigo() << ": " << astronautas[i].getcpf() 
+            << " " << astronautas[i].getnome() << std::endl;
+
+        } else if(voos[i].getEstado() != "finalizado com explosao") {
+                std::cout << "(nenhum)" << std::endl;
             }
         }
     }
-    std::cout << std::endl;
-}
 
 void Agencia::listarMortos() {
     for(int i = 0; i < astronautas.size(); i++) {

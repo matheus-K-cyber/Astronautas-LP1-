@@ -31,10 +31,10 @@ bool Voo::temAstro(std::string cpf) {
     for(int i = 0; i < cpfs.size(); i++) {
         if(cpfs[i] == cpf) {
             return true;
-        } else {
-            return false;
         }
     }
+
+    return false;
 }
 
 // IMPLEMENTAÇÃO DOS MODIFICADORES:
@@ -47,11 +47,12 @@ bool Voo::removeAstro(std::string cpf) {
     for(int i = 0; i < cpfs.size(); i++) {
         if(cpfs[i] == cpf) {
             cpfs.erase(cpfs.begin() + i);
+            countA--;
             return true;
-        } else {
-            return false;
         }
     }
+
+    return false;
 }
 
 void Voo::lancar() {

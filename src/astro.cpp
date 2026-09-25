@@ -24,19 +24,11 @@ int Astronauta::getidade() {
 }
 
 bool Astronauta::vive() {
-    if(vivo) {
-    return vivo = true;
-    } else {
-        return false;
-    }
+    return vivo; 
 }
 
 bool Astronauta::acessavel() {
-    if(disponivel) {
-    return disponivel = true;
-    } else {
-        return false;
-    }
+    return disponivel;
 }
 
 // IMPLEMENTAÇÃO DOS MODIFICADORES:
@@ -45,10 +37,8 @@ void Astronauta::embarcar() {
 }
 
 void Astronauta::desembarcar() {
-    if(vive) {
+    if(vivo) {
         disponivel = true;
-    } else {
-        morrer();
     }
 }
 

@@ -19,8 +19,8 @@ com a IA. Cole só os pedidos que você enviou.
 
 ## Parte 1: uso de IA para entender algo
 
-- O que perguntei (ou "não usei"): oque é um main.cpp, um arquivo.cpp e um arquivo.h(diferenças, sintaxe, papéis de cada um, limites, implementações e conexão), comandos de compilação para projetos com múltiplos arquivos, configuração do VScode para esse projeto e como funciona a herança com arquivos.
-- O que aprendi: arquivos .h são TAD's que mostram os "contratos", .cpp garante o comprimento dos contratos sem que o contratante saiba os meios, um .h pode receber outros .h como herança, main receberá aas ordens e fará as "convocações" das classes e seus contratos, como fazer arquivos.o e executá-los e detalhes para configurar o ambiente do projeto(usando WSL Ubuntu).
+- O que perguntei (ou "não usei"): oque é um main.cpp, um arquivo.cpp e um arquivo.h(diferenças, sintaxe, papéis de cada um, limites, implementações e conexão), comandos de compilação para projetos com múltiplos arquivos, configuração do VScode para esse projeto e como funciona a herança com arquivos(Gemini 3.6 flash estendido), e no openCode questionei a utilidade do código.
+- O que aprendi: arquivos .h são TAD's que mostram os "contratos", .cpp garante o comprimento dos contratos sem que o contratante saiba os meios, um .h pode receber outros .h como herança, main receberá aas ordens e fará as "convocações" das classes e seus contratos, como fazer arquivos.o e executá-los e detalhes para configurar o ambiente do projeto(usando WSL Ubuntu), isso com o Gemini 3.6 flash estendido, o OpenCode me avisou sobre não ter usado certas variáveis de Agencia(buscarAstronauta e buscarVoo) e que há implementações incompletas no geral.
 
 ## Primeiro contato: revisão sem editar
 
