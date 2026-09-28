@@ -6,7 +6,7 @@ com a IA. Cole só os pedidos que você enviou.
 ## Ambiente
 
 - Versão do OpenCode (`opencode --version`):
-- Modelo usado:
+- Modelo usado: Nemotron 3 Ultra Free
 
 ## Parte 1: antes de programar
 
