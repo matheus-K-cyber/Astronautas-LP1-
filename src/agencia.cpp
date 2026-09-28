@@ -162,6 +162,8 @@ void Agencia::finalizarVoo(int codigo) {
 
 void Agencia::listarVoos() {
     std::cout << "== planejado ==" << std::endl;
+    int countNS = 0;
+    int countNE = 0;
 
     for(int i = 0; i < voos.size(); i++) {
         if(voos[i].getEstado() == "planejado") {
@@ -180,55 +182,95 @@ void Agencia::listarVoos() {
 
     std::cout << "== em curso ==" << std::endl;
 
-    for(int i = 0; i < voos.size(); i++) {
+    std::cout << "(nenhum)" << std::endl;
+
+    /*for(int i = 0; i < voos.size(); i++) {
+        if(voos[i].getEstado() != "em curso") {
+            std::cout << "(nenhum)" << std::endl;
+        } else if(voos[i].getEstado == "em curso") {
+            std::cout << ""
+        }
         if(voos[i].getEstado() == "em curso") {
             std::cout << "voo " << voos[i].getCodigo() << ": ";
-            if(voos[i].getEstado() != "em curso") {
-                std::cout << "(nenhum)" << std::endl;
-            } else {
+            
             std::cout << astronautas[i].getcpf() << " " << astronautas[i].getnome();
 
-                if(voos[i + 1].getEstado() == "em curso") {
+            if(voos[i + 1].getEstado() == "em curso") {
                     std::cout << ", ";
-                }
+            } else if(voos[i].getEstado() != "em curso") {
+                std::cout << "(nenhum)" << std::endl;
             }
-        }
-    }
+        }*/
 
     std::cout << "== finalizado com sucesso ==" << std::endl;
 
     for(int i = 0; i < voos.size(); i++) {
-        if(voos[i].getEstado() == "em curso") {
-            std::cout << "voo " << voos[i].getCodigo() << ": ";
-            if(voos[i].getEstado() != "finalizado com sucesso") {
-                std::cout << "(nenhum)" << std::endl;
-            } else {
-            std::cout << astronautas[i].getcpf() << " " << astronautas[i].getnome();
+        if(voos[i].getEstado() != "finalizado com sucesso" && countNS == 0) {
+            std::cout << "(nenhum)";
 
-                if(voos[i + 1].getEstado() == "finalizado com sucesso") {
-                    std::cout << ", ";
-                }
+            countNS++;
+        } else if(voos[i].getEstado() == "finalizado com sucesso" ) {
+            std::cout << "Voo " << voos[i].getCodigo() << ": " << voos[i].getcpf(i) << " " << astronautas[i].getnome();
+
+            if(voos[i + 1].getEstado() == "finalizado com sucesso" && voos[i + 1].getCodigo() == voos[i].getCodigo()) {
+                std::cout << ", " << voos[i].getcpf(i) << " " << astronautas[i].getnome();
             }
+
+            std::cout << std::endl;
         }
     }
 
-    std::cout << "== finalizado com explosao ==" << std::endl;
+        /*if(voos[i].getEstado() == "em curso") {
+            std::cout << "voo " << voos[i].getCodigo() << ": ";
+                if(voos[i].getEstado() != "finalizado com sucesso") {
+                    std::cout << "(nenhum)" << std::endl;
+                } else {
+                std::cout << astronautas[i].getcpf() << " " << astronautas[i].getnome();
+
+                    if(voos[i + 1].getEstado() == "finalizado com sucesso") {
+                            std::cout << ", ";
+                    }
+                }
+        }*/
+
+    std::cout << "\n== finalizado com explosao ==" << std::endl;
 
     for(int i = 0; i < voos.size(); i++) {
-        if(voos[i].getEstado() == "finalizado com explosao") {
+        if(voos[i].getEstado() != "finalizado com explosao" && countNE == 0) {
+            std::cout << "(nenhum)" << std::endl;
+
+            countNE++;
+        } else if(voos[i].getEstado() == "finalizado com explosao") {
+            std::cout << "Voo " << voos[i].getCodigo() << ": " << voos[i].getcpf(i) << " " << astronautas[i].getnome();
+
+            if(voos[i + 1].getEstado() == "finalizado com explosao" && voos[i + 1].getCodigo() == voos[i].getCodigo()) {
+                std::cout << ", " << voos[i].getcpf(i) << " " << astronautas[i].getnome();
+            }
+        }
+
+        /*if(voos[i].getEstado() == "finalizado com explosao") {
             std::cout << "voo " << voos[i].getCodigo() << ": " << astronautas[i].getcpf() 
             << " " << astronautas[i].getnome() << std::endl;
 
         } else if(voos[i].getEstado() != "finalizado com explosao") {
                 std::cout << "(nenhum)" << std::endl;
             }
-        }
+        }*/
     }
+}
 
 void Agencia::listarMortos() {
     for(int i = 0; i < astronautas.size(); i++) {
-        if(voos[i].getEstado() == "finalizado com explosão") {
-            std::cout << astronautas[i].getcpf() << " " << astronautas[i].getnome() << " - voos:" << voos[i].getCodigo() << std::endl;
+        if(voos[i].getEstado() != "finalizado com explosão") {
+            std::cout << "(nenhum)" << std::endl;
+        } else if(voos[i].getEstado() == "finalizado com explosão") {
+            std::cout << voos[i].getcpf(i) << " " << astronautas[i].getnome() << " - voos:" 
+            << voos[i].getCodigo() << std::endl;
+            
+            if(voos[i + 1].getEstado() == "finalizado com explosao") {
+                std::cout << voos[i].getcpf(i) << " " << astronautas[i].getnome() << " - voos:" 
+            << voos[i].getCodigo() << std::endl;
+            }
         }
     }
 }
